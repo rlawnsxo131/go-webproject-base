@@ -35,6 +35,8 @@ func New() (*sql.DB, error) {
 		ReadTimeout: 10 * time.Second,
 		// 쿼리 쓰기 제한 시간
 		WriteTimeout: 10 * time.Second,
+		// Go가 SQL을 미리 조립해서 단 1번만 통신함 -> 3번에서 1번으로 줄어듦
+		InterpolateParams: true,
 	}
 
 	connector, err := mysql.NewConnector(&cfg)
