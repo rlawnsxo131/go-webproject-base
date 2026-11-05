@@ -27,8 +27,8 @@ go.work
 # End of https://www.toptal.com/developers/gitignore/api/go
 
 # Docker MySQL 데이터 및 로그 제외
-docker/mysql/data/*
-!docker/mysql/data/.gitkeep
+__docker__/mysql/data/*
+!__docker__/mysql/data/.gitkeep
 
-docker/mysql/log/*
-!docker/mysql/log/.gitkeep
+__docker__/mysql/log/*
+!__docker__/mysql/log/.gitkeep
