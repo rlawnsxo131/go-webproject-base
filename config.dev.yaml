@@ -1,0 +1,4 @@
+# 여기도 설정 필요
+app:
+  port: 8080
+  log_level: info

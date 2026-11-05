@@ -1,0 +1,28 @@
+services:
+  mysql:
+    image: mysql:8.0.43
+    platform: linux/amd64
+    container_name: example-mysql
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - "${PWD}/__docker__/mysql/data:/var/lib/mysql"
+      - "${PWD}/__docker__/mysql/log:/var/log/mysql"
+      - "${PWD}/__docker__/mysql/conf/my.cnf:/etc/mysql/conf.d/my.cnf"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+    environment:
+      MYSQL_HOST: localhost
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: example
+      TZ: Asia/Seoul
+    healthcheck:
+      test:
+        ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p1234"]
+      interval: 3s
+      timeout: 2s
+      retries: 5
+      start_period: 5s
