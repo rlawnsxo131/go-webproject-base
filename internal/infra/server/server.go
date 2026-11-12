@@ -25,6 +25,8 @@ func NewHTTPServer(handler http.Handler, port string) *HTTPServer {
 
 		// 응답 데이터 전송 최대 시간
 		WriteTimeout: 15 * time.Second,
+		// 요청 헤더를 읽는 최대 시간
+		ReadHeaderTimeout: 5 * time.Second,
 		// 요청 바디를 읽는 최대 시간
 		ReadTimeout: 15 * time.Second,
 		// 연결(Keep-Alive)을 유지하는 최대 시간
