@@ -61,7 +61,7 @@ func (r *ExampleRepository) FindByID(ctx context.Context, exampleID int64, opts 
 	return dom, nil
 }
 
-func (r *ExampleRepository) Create(ctx context.Context, dom *domain.Example) (int64, error) {
+func (r *ExampleRepository) Insert(ctx context.Context, dom *domain.Example) (int64, error) {
 	ent := entity.NewExampleEntityFromDomain(dom)
 
 	ib := exampleStruct.InsertInto("example").

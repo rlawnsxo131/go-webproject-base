@@ -80,6 +80,7 @@ func (h *exampleHandler) Create() http.HandlerFunc {
 			}
 			slog.ErrorContext(r.Context(), "[exampleHandler.Create] example create error", slog.Any("error", err))
 			response.JSON(r.Context(), w, http.StatusInternalServerError, nil)
+			return
 		}
 
 		example, err := h.container.ExampleSvc.Create(r.Context(), newExample)
@@ -89,6 +90,6 @@ func (h *exampleHandler) Create() http.HandlerFunc {
 			return
 		}
 
-		response.JSON(r.Context(), w, http.StatusOK, example)
+		response.JSON(r.Context(), w, http.StatusCreated, example)
 	}
 }

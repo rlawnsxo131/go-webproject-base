@@ -26,7 +26,7 @@ func (s *ExampleService) GetByIDWithLock(ctx context.Context, id int64) (*domain
 }
 
 func (s *ExampleService) Create(ctx context.Context, dom *domain.Example) (*domain.Example, error) {
-	exampleId, err := s.exampleRepo.Create(ctx, dom)
+	exampleId, err := s.exampleRepo.Insert(ctx, dom)
 	if err != nil {
 		return nil, err
 	}
