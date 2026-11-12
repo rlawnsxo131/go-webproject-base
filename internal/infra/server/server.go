@@ -67,16 +67,16 @@ func (s *HTTPServer) Run(doShutdown func()) {
 			case errors.Is(err, context.Canceled):
 				slog.Info("graceful shutdown context was canceled.")
 			default:
-				slog.Error("HTTP Server Shutdown Failed", "error", err)
+				slog.Error("HTTP Server Shutdown Failed", slog.Any("error", err))
 			}
 		}
 
 		serverStopCtx()
 	}()
 
-	slog.Info("starting HTTP server", "addr", s.Addr)
+	slog.Info("starting HTTP server", slog.String("addr", s.Addr))
 	if err := s.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-		slog.Error("failed to start server", "error", err)
+		slog.Error("failed to start server", slog.Any("error", err))
 		panic(err)
 	}
 
