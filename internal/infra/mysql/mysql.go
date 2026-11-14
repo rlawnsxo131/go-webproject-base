@@ -50,7 +50,7 @@ func New() (*sql.DB, error) {
 	db.SetMaxOpenConns(10)
 	// 풀(Pool)에 유휴 상태로 대기시킬 최대 커넥션 수 (MaxOpen과 동일하게 맞추는 게 정석)
 	db.SetMaxIdleConns(10)
-	// 커넥션 재사용 최대 재사용 시간 (MySQL의 wait_timeout보다 무조건 짧아야 함)
+	// 커넥션 재사용 최대 재사용 시간 (MySQL의 wait_timeout보다 무조건 짧아야 함.)
 	db.SetConnMaxLifetime(5 * time.Minute)
 	// 유휴 커넥션이 풀에 머물 수 있는 최대 시간
 	db.SetConnMaxIdleTime(3 * time.Minute)

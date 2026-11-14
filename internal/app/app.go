@@ -48,8 +48,8 @@ func New() (*App, error) {
 	mux.HandleFunc("POST /api/example", exampleHandler.Create())
 
 	httpHandler := middleware.TraceId(
-		middleware.Recovery(
-			middleware.Logger(
+		middleware.Logger(
+			middleware.Recovery(
 				middleware.Cors(middleware.CorsConfig{
 					AllowedOrigins: []string{"localhost"},
 					AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},

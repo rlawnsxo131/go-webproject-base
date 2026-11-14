@@ -4,6 +4,7 @@ import (
 	"log/slog"
 	"net/http"
 	"runtime/debug"
+	"strings"
 )
 
 func Recovery(next http.Handler) http.Handler {
@@ -12,6 +13,11 @@ func Recovery(next http.Handler) http.Handler {
 
 		defer func() {
 			if err := recover(); err != nil {
+				// 에러 로그를 남기지 않고 net/http 기본 서버가 조용히 연결을 닫도록 다시 전파
+				if err == http.ErrAbortHandler {
+					panic(err)
+				}
+
 				slog.ErrorContext(r.Context(), "server crash(panic) recovered",
 					slog.Any("error", err),
 					slog.String("stack", string(debug.Stack())),
@@ -25,7 +31,7 @@ func Recovery(next http.Handler) http.Handler {
 				}
 
 				// 101 Switching Protocols로 전환된 웹소켓 연결인 경우 웹소켓 핸들러 내부에서 패닉이 나면 HTTP 응답을 보내면 안됨
-				if r.Header.Get("Upgrade") == "websocket" {
+				if strings.EqualFold(r.Header.Get("Upgrade"), "websocket") {
 					return
 				}
 
